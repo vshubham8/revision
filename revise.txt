@@ -1,137 +1,70 @@
 /*
 #----------------
 //No. of consecutive 1s:
-f(n)
-{c=0;while(x!=0){x=(x&(x<<1));c++;}return c;}
+f(n){c=0;while(x!=0){x=(x&(x<<1));c++;}return c;}
+#----------------
+
 #----------------
 //No. to nearest multiple of 10
 int main()
-{
-	int i,n, flag;str;cin>>str;n = str[str.size()-1]-'0';
-  if(n<5){str[str.size()-1]='0';cout<<str<<endl;}
-  else
-  {
-    str[str.size()-1]='0';i=str.size()-2;flag=1;
-    while(i>=0)
-    {
-      if(str[i]=='9')
-      {if(flag==1)str[i]='0';}
-      else
-      {str[i]=str[i]+flag;break;;}
-      i--;
-    }
-    if(i==-1)cout<<1<<str<<endl;
-    else cout<<str<<endl;
-  }
-}
+{int i,n, flag;str;cin>>str;n = str[str.size()-1]-'0';
+if(n<5){str[str.size()-1]='0';cout<<str<<endl;}else{str[str.size()-1]='0';i=str.size()-2;flag=1;
+while(i>=0){if(str[i]=='9'){if(flag==1)str[i]='0';}else{str[i]=str[i]+flag;break;;}i--;}
+if(i==-1)cout<<1<<str<<endl;else cout<<str<<endl;}}
+#----------------
+
 #----------------
 //delete N nodes after M
 void linkdelete(struct node  *head, int M, int N)
-{
-    node* h=head,*prev=NULL;
-    while(h!=NULL)
-    {
-        for(int i=0;i<M and h!=NULL;i++)
-        {prev=h;h=h->next;}
-        if(h==NULL)return ;
-        for(int j=0;j<N and h!=NULL;j++){h=h->next;}prev->next=h;
-    }
-}
+{node* h=head,*prev=NULL;while(h!=NULL){for(int i=0;i<M and h!=NULL;i++){prev=h;h=h->next;}
+if(h==NULL)return;for(int j=0;j<N and h!=NULL;j++){h=h->next;}prev->next=h;}}
+#----------------
+
 #----------------
 //find sum of all uncommon elements
 int findSum(int A[], int B[], int n) 
-{
-    unordered_map<int, int> hash;
-    for (int i = 0; i < n; i++){hash[A[i]]++;hash[B[i]]++;} 
-    int sum = 0;
-    for (auto x: hash){if(x.second==1){sum += x.first;}}
-    return sum; 
-}
+{unordered_map<int, int> hash;for (int i = 0; i < n; i++){hash[A[i]]++;hash[B[i]]++;}
+int sum = 0;for (auto x: hash){if(x.second==1){sum += x.first;}}return sum;}
+#----------------
+
 #----------------
 //max. sum s.t. no two elements are adjacent
-int FindMaxSum(int arr[], int n) 
-{ 
-  int incl = arr[0]; 
-  int excl = 0; 
-  for (int i = 1; i < n; i++) 
-  { 
-     excl_new = (incl > excl)? incl: excl;
-     incl = excl + arr[i];excl = excl_new; 
-  }return ((incl > excl)? incl : excl); 
-}
+int FindMaxSum(int arr[], int n){int incl = arr[0];int excl = 0;for (int i = 1; i < n; i++) 
+{excl_new = (incl > excl)? incl: excl;incl = excl + arr[i];excl = excl_new;}return ((incl > excl)? incl : excl);}
+#----------------
+
 #----------------
 //arrange consonants and vowels in LL
-Node *arrange(Node *head) 
-{ 
-    Node *newHead = head; 
-    Node *latestVowel; 
-    Node *curr = head; 
-    if (head == NULL) 
-        return NULL; 
-    if (isVowel(head->data)) 
-        latestVowel = head; 
-    else
-    { 
-        while (curr->next != NULL && 
-               !isVowel(curr->next->data)) 
-            curr = curr->next; 
-        if (curr->next == NULL) 
-            return head; 
-        latestVowel = newHead = curr->next; 
-        curr->next = curr->next->next; 
-        latestVowel->next = head; 
-    } 
-    while (curr != NULL && curr->next != NULL) 
-    { 
-        if (isVowel(curr->next->data)) 
-        { 
-            if (curr == latestVowel) 
-                latestVowel = curr = curr->next; 
-            else
-            { 
-                Node *temp = latestVowel->next; 
-                latestVowel->next = curr->next; 
-                latestVowel = latestVowel->next; 
-                curr->next = curr->next->next; 
-                latestVowel->next = temp; 
-            } 
-        } 
-        else
-            curr = curr->next; 
-    } 
-    return newHead; 
-}
+Node *arrange(Node *head){Node *newHead = head,*latestVowel,*curr = head;
+if (head == NULL)return NULL;if (isVowel(head->data))latestVowel = head; 
+else{while (curr->next != NULL && !isVowel(curr->next->data))curr = curr->next; 
+if (curr->next == NULL)return head;latestVowel = newHead = curr->next; 
+curr->next = curr->next->next;latestVowel->next = head;}
+while (curr != NULL && curr->next != NULL) 
+{if (isVowel(curr->next->data)){if (curr == latestVowel)latestVowel = curr = curr->next;
+else{Node *temp = latestVowel->next;latestVowel->next = curr->next; 
+latestVowel = latestVowel->next;curr->next = curr->next->next; 
+latestVowel->next = temp;}}else curr = curr->next;}return newHead;}
+#----------------
+
 #----------------
 //find rank of string from its permutation sorted lexicographically
 #define MOD 1000003
-void initializeFactorials(int totalLen, vector<int> &fact) {
-    long long int factorial = 1;
-    fact.push_back(1); // 0!= 1
-    for (int curIndex = 1; curIndex < totalLen; curIndex++) {
-        factorial = (factorial * curIndex) % MOD;
-        fact.push_back(factorial);
-    }
-    return;
-}
-int findRank(string S) {
-    int charCount[256];
-    memset(charCount, 0, sizeof(charCount));
-    for (int i = 0; i < S.length(); i++) charCount[S[i]]++;
-    vector<int> fact;
-    initializeFactorials(S.length() + 1, fact);
-    long long int rank =  1;
-    for (int i = 0; i < S.length(); i++) {
-        int less = 0;
-        for (int ch = 0; ch < S[i]; ch++){less += charCount[ch];}
-        rank = (rank + ((long long)fact[S.length() - i - 1] * less)) % MOD;
-        charCount[S[i]]--;
-    }
-    return rank;
-}
+void initializeFactorials(int totalLen, vector<int> &fact){
+long long int factorial = 1;fact.push_back(1); // 0!= 1
+for (int curIndex = 1; curIndex < totalLen; curIndex++) {
+factorial = (factorial * curIndex) % MOD;fact.push_back(factorial);}return;}
+int findRank(string S){int charCount[256];memset(charCount, 0, sizeof(charCount));
+for (int i = 0; i < S.length(); i++) charCount[S[i]]++;
+vector<int> fact;initializeFactorials(S.length() + 1, fact);
+long long int rank =  1;for (int i = 0; i < S.length(); i++) {
+int less = 0;for (int ch = 0; ch < S[i]; ch++){less += charCount[ch];}
+rank = (rank + ((long long)fact[S.length() - i - 1] * less)) % MOD;charCount[S[i]]--;}return rank;}
+#----------------
+
 #----------------
 min-cost path to reach a cell (X,Y) from cell (0,0)
 Directions: 1 step right or 1 step down
-
 first row:
 F(j,1,Y-1){MinCost[0][j] = MinCost[0][j-1] + Cost[0][j];}
 first column:
@@ -139,234 +72,113 @@ F(i,1,X-1){MinCost[i][0] = MinCost[i-1][0] + Cost[i][0];}
 F(1 to X-1){F(1 to Y-1){MinCost(i,j) = min(MinCost(i-1,j),MinCost(i,j-1)) + Cost[i][j]}}
 min_cost=MinCost[X-1][Y-1];
 #----------------
+
+#----------------
 //Min. insertions to form a palindrome
-l=lcs(s,rev(s))
-ans=n-l
+l=lcs(s,rev(s));ans=n-l;
+#----------------
+
 #----------------
 //min. no. of appends to make a string palidrome
-int noOfAppends(char s[]) 
-{if (isPalindrome(s))return 0;s++;return 1 + noOfAppends(s);}
+int noOfAppends(char s[]){if (isPalindrome(s))return 0;s++;return 1 + noOfAppends(s);}
+#----------------
+
 #----------------
 //sum of leaf nodes at min. level
-int sumOfLeafNodesAtMinLevel(Node* root) 
-{ 
-    if (!root)return 0; 
-    if (!root->left && !root->right)return root->data; 
-    queue<Node*> q;int sum = 0;bool f = 0; 
-    q.push(root); 
-    while (f == 0) {
-        int nc = q.size(); 
-        while (nc--) { 
-            Node* top = q.front();q.pop(); 
-            if (!top->left && !top->right){sum += top->data;f = 1;} 
-            else { 
-                if (top->left) 
-                    q.push(top->left); 
-                if (top->right) 
-                    q.push(top->right); 
-            } 
-        } 
-    } 
-    return sum; 
-}
+int sumOfLeafNodesAtMinLevel(Node* root){
+if (!root)return 0;if (!root->left && !root->right)return root->data; 
+queue<Node*> q;int sum = 0;bool f = 0;q.push(root);while (f == 0) {int nc = q.size(); 
+while (nc--) {Node* top = q.front();q.pop();if (!top->left && !top->right){sum += top->data;f = 1;}
+else {if (top->left)q.push(top->left);if (top->right)q.push(top->right);}}}return sum;}
+#----------------
+
 #----------------
 //distance between two nodes in bin. tree.
 struct Node {int data;Node *left, *right;};
-Node* getNode(int data){
-    Node* newNode = (Node*)malloc(sizeof(Node)); 
-    newNode->data = data; 
-    newNode->left = newNode->right = NULL; 
-    return newNode; 
-}
+Node* getNode(int data){Node* newNode = (Node*)malloc(sizeof(Node));
+newNode->data = data;newNode->left = newNode->right = NULL;return newNode;}
 Node* LCA(Node * root, int n1,int n2) 
-{ 
-    if (root == NULL)return root; 
-    if (root->key == n1 || root->key == n2)return root; 
-    Node* left = LCA(root->left, n1, n2); 
-    Node* right = LCA(root->right, n1, n2); 
-    if (left != NULL && right != NULL)return root; 
-    if (left != NULL)return LCA(root->left, n1, n2); 
-    return LCA(root->right, n1, n2); 
-}
+{if (root == NULL)return root;if (root->key == n1 || root->key == n2)return root; 
+Node* left = LCA(root->left, n1, n2);Node* right = LCA(root->right, n1, n2); 
+if (left != NULL && right != NULL)return root;if (left != NULL)return LCA(root->left, n1, n2); 
+return LCA(root->right, n1, n2);}
 int findLevel(Node *root, int k, int level) 
-{ 
-    if(root == NULL) return -1;
-    if(root->key == k) return level;
-    int left = findLevel(root->left, k, level+1);
-    if (left == -1)return findLevel(root->right, k, level+1); 
-    return left;
-}
+{if(root == NULL) return -1;if(root->key == k) return level;int left = findLevel(root->left, k, level+1);
+if (left == -1)return findLevel(root->right, k, level+1);return left;}
 int findDistance(Node* root, int a, int b) 
-{
-    Node* lca = LCA(root, a , b);
-    int d1 = findLevel(lca, a, 0);
-    int d2 = findLevel(lca, b, 0);
-    return d1 + d2; 
-}
+{Node* lca = LCA(root, a , b);int d1 = findLevel(lca, a, 0);int d2 = findLevel(lca, b, 0);return d1 + d2;}
 #----------------
-//sudoko solver
-def print_grid(arr): 
-	for i in range(9): 
-		for j in range(9): 
-			print arr[i][j], 
-		print ('n') 
-def find_empty_location(arr,l): 
-	for row in range(9): 
-		for col in range(9): 
-			if(arr[row][col]==0): 
-				l[0]=row 
-				l[1]=col 
-				return True
-	return False
-def used_in_row(arr,row,num): 
-	for i in range(9): 
-		if(arr[row][i] == num): 
-			return True
-	return False
-def used_in_col(arr,col,num): 
-	for i in range(9): 
-		if(arr[i][col] == num): 
-			return True
-	return False
-def used_in_box(arr,row,col,num): 
-	for i in range(3): 
-		for j in range(3): 
-			if(arr[i+row][j+col] == num): 
-				return True
-	return False
-def check_location_is_safe(arr,row,col,num): 
-	return not used_in_row(arr,row,num) and not used_in_col(arr,col,num) and not used_in_box(arr,row - row%3,col - col%3,num) 
-def solve_sudoku(arr): 
-	l=[0,0] 
-	if(not find_empty_location(arr,l)): 
-		return True
-	row=l[0] 
-	col=l[1] 
-	for num in range(1,10): 
-		if(check_location_is_safe(arr,row,col,num)): 
-			arr[row][col]=num 
-			if(solve_sudoku(arr)): 
-				return True
-			arr[row][col] = 0
-	return False
-if __name__=="__main__": 
-	grid=[[0 for x in range(9)]for y in range(9)] 
-	if(solve_sudoku(grid)): 
-		print_grid(grid) 
-	else: 
-		print "No solution exists"
+
 #----------------
 //cousins sum
 void printCousins(Node* root, Node* node_to_find) 
-{ 
-    if (root == node_to_find) {cout << "Cousin Nodes : None" << endl;return;} 
-    queue<Node*> q;bool found = false; 
-    int size_;Node* p; 
-    q.push(root);
-    while (!q.empty() && !found) { 
-        size_ = q.size(); 
-        while (size_) { 
-            p = q.front(); 
-            q.pop(); 
-            if ((p->left == node_to_find ||  
-                p->right == node_to_find)) { 
-                found = true; 
-            } 
-            else { 
-                if (p->left)q.push(p->left); 
-                if (p->right)q.push(p->right); 
-            }size_--; 
-        }
-    } 
-    if (found) { 
-        cout << "Cousin Nodes : "; 
-        size_ = q.size(); 
-        if (size_ == 0)cout << "None"; 
-        for (int i = 0; i < size_; i++) { 
-            p = q.front(); 
-            q.pop(); 
-            cout << p->data << " "; 
-        }
-    }
-    else {cout << "Node not found";}cout << endl; 
-    return;
-}
+{if (root == node_to_find) {cout << "Cousin Nodes : None" << endl;return;} 
+queue<Node*> q;bool found = false;int size_;Node* p;q.push(root);
+while (!q.empty() && !found) {size_ = q.size();while (size_) {p = q.front();q.pop();
+if ((p->left == node_to_find ||  p->right == node_to_find)) {found = true;}else { 
+if (p->left)q.push(p->left);if (p->right)q.push(p->right);}size_--;}} 
+if (found) { cout << "Cousin Nodes : "; size_ = q.size(); 
+if (size_ == 0)cout << "None"; for (int i = 0; i < size_; i++) { 
+p = q.front();q.pop();cout << p->data << " ";}}
+else {cout << "Node not found";}cout << endl;return;}
+#----------------
+
 #----------------
 //day of week : 0-Sunday...
-int dayofweek(int d, int m, int y) 
-{static int t[] = { 0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4 };
-y -= m < 3;return ( y + y/4 - y/100 + y/400 + t[m-1] + d) % 7;
-} 
+int dayofweek(int d, int m, int y){static int t[] = { 0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4 };
+y -= m < 3;return ( y + y/4 - y/100 + y/400 + t[m-1] + d) % 7;} 
+#----------------
+
 #----------------
 //next greater number with same set of digits
 void findNext(char number[], int n) 
-{ 
-    int i, j; 
-    for (i = n-1; i > 0; i--) 
-        if (number[i] > number[i-1]) 
-           break; 
-    if (i==0) 
-    { 
-        cout << "Next number is not possible"; 
-        return; 
-    } 
-    int x = number[i-1], smallest = i; 
-    for (j = i+1; j < n; j++) 
-        if (number[j] > x && number[j] < number[smallest]) 
-            smallest = j; 
-    swap(&number[smallest], &number[i-1]); 
-    sort(number + i, number + n); 
-    cout << "Next number with same set of digits is " << number; 
-    return; 
+{for (i = n-1; i > 0; i--)if (number[i] > number[i-1])break; 
+if (i==0){cout << "Next number is not possible";return;}int x = number[i-1], smallest = i; 
+for (j = i+1; j < n; j++)if (number[j] > x && number[j] < number[smallest]) 
+smallest = j;swap(&number[smallest], &number[i-1]); 
+sort(number + i, number + n);cout << "Next number with same set of digits is " << number;return; 
 }
+#----------------
+
 #----------------
 //no. of occu. of word in 2d
 bool isvalid(int row, int col, int prevRow, int prevCol) 
 {return (row >= 0) && (row < ROW)&&(col >= 0) && (col < COL)&&!(row== prevRow && col == prevCol);} 
 int rowNum[] = {-1, -1, -1, 0, 0, 1, 1, 1};int colNum[] = {-1, 0, 1, -1, 1, -1, 0, 1}; 
 void DFS(char mat[][COL], int row, int col,int prevRow, int prevCol, char* word,string path, int index, int n)
-{
-    if (index > n || mat[row][col] != word[index])return; 
-    path += string(1, word[index]) + "(" + to_string(row)+", " + to_string(col) + ") ";
-    if (index == n) 
-    {cout << path << endl;return;} 
-    for (int k = 0; k < 8; ++k) 
-        if (isvalid(row + rowNum[k], col + colNum[k],prevRow, prevCol)) 
-            DFS(mat, row + rowNum[k], col + colNum[k],row, col, word, path, index+1, n); 
-} 
+{if (index > n || mat[row][col] != word[index])return;
+path += string(1, word[index]) + "(" + to_string(row)+", " + to_string(col) + ") ";
+if (index == n){cout << path << endl;return;} 
+for (int k = 0; k < 8; ++k)if (isvalid(row + rowNum[k], col + colNum[k],prevRow, prevCol)) 
+DFS(mat, row + rowNum[k], col + colNum[k],row, col, word, path, index+1, n);} 
 void findWords(char mat[][COL], char* word, int n) 
-{ 
-    for (int i = 0; i < ROW; ++i) 
-        for (int j = 0; j < COL; ++j) 
-            if (mat[i][j] == word[0]) 
-                DFS(mat, i, j, -1, -1, word, "", 0, n); 
-}
-findWords(mat, word, strlen(word) - 1); 
-#----------------
-//reorder array using index array
-void reorder(int arr[], int index[], int n){
-  int a, b, c, d;
-  int count=0;
-  for(int i=0; i<n && count<n; i++)
-  {
-    if(index[i]!=i)
-    {
-      a=arr[i];b=index[i];
-      while(b!=i)
-      {
-        c = arr[b];d = index[b];
-        arr[b] = a;index[b] = b;
-        a = c;b= d;
-        count++;
-      }
-      arr[b] = a;index[b] = b;
-      count++;
-    }
-  }
-}
-reorder(arr, index, n);
-#----------------
-#----------------
+{for (int i = 0; i < ROW; ++i)for (int j = 0; j < COL; ++j)
+if (mat[i][j] == word[0])DFS(mat, i, j, -1, -1, word, "", 0, n);}
+//findWords(mat, word, strlen(word) - 1); 
 #----------------
 
+#----------------
+//reorder array using index array
+void reorder(int arr[], int index[], int n){int a, b, c, d;int count=0;
+for(int i=0; i<n && count<n; i++){if(index[i]!=i){a=arr[i];
+b=index[i];while(b!=i){c = arr[b];d = index[b];arr[b] = a;
+index[b] = b;a = c;b= d;count++;}arr[b] = a;index[b] = b;count++;}}}
+//reorder(arr, index, n);
+#----------------
+
+#----------------
+//sudoko solver
+def print_grid(arr): i in range(9):for j in range(9):print arr[i][j],print ('n') 
+def find_empty_location(arr,l):	for row in range(9):for col in range(9): 
+if(arr[row][col]==0):l[0]=row l[1]=col return True return False
+def used_in_row(arr,row,num): for i in range(9): if(arr[row][i] == num): return True return False
+def used_in_col(arr,col,num): for i in range(9): if(arr[i][col] == num): return True return False
+def used_in_box(arr,row,col,num): for i in range(3): for j in range(3): if(arr[i+row][j+col] == num): return True return False
+def check_location_is_safe(arr,row,col,num): return not used_in_row(arr,row,num) and not used_in_col(arr,col,num) and not used_in_box(arr,row - row%3,col - col%3,num) 
+def solve_sudoku(arr): l=[0,0] if(not find_empty_location(arr,l)): return True
+row=l[0] col=l[1] for num in range(1,10): if(check_location_is_safe(arr,row,col,num)): arr[row][col]=num 
+if(solve_sudoku(arr)): return True arr[row][col] = 0 return False
+if __name__=="__main__": 
+if(solve_sudoku(grid)): print_grid(grid) else: print "No solution exists"
+#----------------
 */
